@@ -1,13 +1,19 @@
 const path = require('path')
 const osu = require('node-os-utils')
+const {ipcRenderer} = require('electron')
 //const notifier = require('node-notifier');
 const cpu = osu.cpu
 const mem = osu.mem
 const os = osu.os
 
-let cpuOverload = 90;
-let alertFrequency = 5
+let cpuOverload 
+let alertFrequency
 
+// Get settings & values 
+ipcRenderer.on('settings:get', (e, settings) => {
+    cpuOverload = +settings.cpuOverload
+    alertFrequency = +settings.alertFrequency
+})
 
 // Object
 // notifier.notify({
@@ -49,6 +55,11 @@ setInterval(() => {
     //Uptime 
     document.getElementById('sys-uptime').innerText = secondsToDhms(os.uptime())
 
+    //mem percent
+    // mem.info().then(info =>{
+    //     document.getElementById('mem-free').innerText = info.freeMemPercentage + '%'
+    // })
+
 }, 2000)
 
 //set model
@@ -63,7 +74,10 @@ document.getElementById('os').innerText = `${os.type()} ${os.arch()}`
 // total mem 
 mem.info().then(info =>{
     document.getElementById('mem-total').innerText = info.totalMemMb
+    console.log(info)
 })
+
+
 
 // show days hours mins secs
 function secondsToDhms(seconds) {
