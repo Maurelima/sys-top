@@ -2,4 +2,4 @@
 
 ## Manage processor overload with alerts
 
-![imageshrink](https://github.com/Maurelima/ImageShrink/blob/master/assets/images/image.png)
+![imageshrink](https://github.com/Maurelima/sys-top/blob/master/app/img/img.png)
